@@ -1,44 +1,11 @@
-This is an example project using CMake.
+# Sphere placing algorithm
 
-The requirements are:
+### Requirements
+- CMake
+- nlohmann Json library for C++
 
-- CMake 3.11 or better; 3.14+ highly recommended.
-- A C++17 compatible compiler
-- The Boost libararies (header only part is fine)
-- Git
-- Doxygen (optional)
+### Installation
+- Download folder and let CMake do the configuration, under Windows 10 / 11 and Visual Studio 2022 it should work out of the box (if nlohmann::json is available)
 
-To configure:
-
-```bash
-cmake -S . -B build
-```
-
-Add `-GNinja` if you have Ninja.
-
-To build:
-
-```bash
-cmake --build build
-```
-
-To test (`--target` can be written as `-t` in CMake 3.15+):
-
-```bash
-cmake --build build --target test
-```
-
-To build docs (requires Doxygen, output in `build/docs/html`):
-
-```bash
-cmake --build build --target docs
-```
-
-To use an IDE, such as Xcode:
-
-```bash
-cmake -S . -B xbuild -GXcode
-cmake --open xbuild
-```
-
-The CMakeLists show off several useful design patterns for CMake.
+### Usage
+- Run the executable with a config.json file in the same folder, such as the one found in the example folder 
