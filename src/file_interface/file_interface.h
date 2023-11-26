@@ -177,18 +177,21 @@ private:
 
 		size_t lineNumber = 0;
 
-		while ((lineEnd = content.find('\n', lineStart)) != std::string::npos)
+		while ((lineEnd = content.find_first_of({ '\n', '\0' }, lineStart)) != std::string::npos)
 		{
 			double result;
-			try 
+			if (lineStart < lineEnd)
 			{
-				std::from_chars(content.data() + lineStart, content.data() + lineEnd, result);
-				allData.emplace_back(result);
-			}
-			catch (const std::exception e)
-			{
-				std::string_view line(content.data() + lineStart, lineEnd - lineStart);
-				std::printf("Error parsing file %s in line %d:\n%s\n", filePath, lineNumber, line);
+				try
+				{
+					std::from_chars(content.data() + lineStart, content.data() + lineEnd, result);
+					allData.emplace_back(result);
+				}
+				catch (const std::exception e)
+				{
+					std::string_view line(content.data() + lineStart, lineEnd - lineStart);
+					std::printf("Error parsing file %s in line %d:\n%s\n", filePath, lineNumber, line);
+				}
 			}
 			lineStart = lineEnd + 1;
 			++lineNumber;

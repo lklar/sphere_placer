@@ -2,7 +2,7 @@
 #include "Placer.h"
 #include <algorithm>
 #include <chrono>
-
+#include "file_interface.h"
 using enum PlacerConfig::mode;
 
 SpherePlacer::SpherePlacer(PlacerConfig& placerConfig)
@@ -13,13 +13,11 @@ SpherePlacer::SpherePlacer(PlacerConfig& placerConfig)
 	int N = pc["N"];
 	double xDim = pc["X_dim"];
 	double yDim = pc["Y_dim"];
-	double rMin = pc["R"];
-	double rMax = rMin;
-	if (pc.get_flag(PP_POLYSIZED))
-	{
-		rMin = pc["R_min"];
-		rMax = pc["R_max"];
-	}
+
+	FileInterface fi("radii.csv", FileInterface::FI_CSV);
+	auto radii = fi.read<double>();
+	double rMax = *std::max_element(radii.begin(), radii.end());
+	std::shuffle(radii.begin(), radii.end(), std::default_random_engine(time(NULL)));
 
 	if (pc.get_flag(PP_RECURSIVE))
 	{
@@ -34,10 +32,8 @@ SpherePlacer::SpherePlacer(PlacerConfig& placerConfig)
 
 	RNG::uniform_real_distribution xDist(rngEngine());
 	RNG::uniform_real_distribution yDist(rngEngine());
-	RNG::uniform_real_distribution rDist(rngEngine(), rMin, rMax);
-	for (int i = 0; i < N; ++i)
+	for (auto& r : radii)
 	{
-		double r = rDist();
 		inputSpheres->emplace_back(
 			xDist(r, xDim - r),
 			yDist(r, yDim - r),

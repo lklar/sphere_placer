@@ -19,15 +19,12 @@ int main(int argc, char** argv)
 		config = PlacerConfig(argc, argv);
 	}
 
-
 	SpherePlacer sp(config);
 	auto result = sp.place_spheres();
 
 	FileInterface fi(config["output_path"], FileInterface::FI_CSV);
 
 	fi.write(result);
-	
-	
 
 	return 0;
 }

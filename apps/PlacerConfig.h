@@ -16,13 +16,13 @@ private:
 	struct cliParser;
 
 	nlohmann::json config = {
-		{"mono_sized", true},
-		{"poly_sized", false},
+		{"mono_sized", false},
+		{"poly_sized", true},
 		{"recursive", true},
 		{"N", 1000},
 		{"R", 0.5},
-		{"R_min", 0.0},
-		{"R_max", 0.0},
+		{"R_min", 0.5},
+		{"R_max", 0.5},
 		{"X_dim", 10.0},
 		{"Y_dim", 10.0},
 		{"Z_floor", 0.0},

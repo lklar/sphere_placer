@@ -1,6 +1,4 @@
 {
-	"N" : 100000,
-	"R" : 0.2,
 	"X_dim" : 50.0,
 	"Y_dim" : 50.0,
 	"output_path" : "out.csv"

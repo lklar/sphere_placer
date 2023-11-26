@@ -63,7 +63,6 @@ void PlacerConfig::set_flags()
 	if (config["poly_sized"])
 	{
 		set_flag(mode::PP_POLYSIZED);
-		set_flag(mode::PP_POLYSIZED);
 	}
 	if (config["recursive"])
 	{
