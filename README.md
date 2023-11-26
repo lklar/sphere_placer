@@ -2,10 +2,13 @@
 
 ### Requirements
 - CMake
-- nlohmann Json library for C++
+- nlohmann-json library for C++
+  - You can install this library with vcpkg
 
 ### Installation
-- Download folder and let CMake do the configuration, under Windows 10 / 11 and Visual Studio 2022 it should work out of the box (if nlohmann::json is available)
+- Clone the branch into a local folder with
+```git clone -b dev https://github.com/lklar/sphere_placer```
+- Open the folder in CMake, configure and generate the project. You should be able to just open and compile it in Visual Studio. 
 
 ### Usage
-- Run the executable with a config.json file in the same folder, such as the one found in the example folder 
+- Run the executable with a config.json and radii.csv file in the same folder, such as the ones found in the example folder.
