@@ -46,6 +46,10 @@ namespace RNG
 		uint64_t operator()();
 
 		double generate_double();
+
+		uint64_t min();
+
+		uint64_t max();
 	};
 
 }
