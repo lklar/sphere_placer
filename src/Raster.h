@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <memory>
 #include "dim_N_vectors/dim_3_vectors.h"
 
 struct Sphere {

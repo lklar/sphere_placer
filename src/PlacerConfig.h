@@ -59,35 +59,36 @@ private:
 			}
 		}
 
-		template <typename T>
+		template<typename T>
+		requires std::constructible_from<std::string, T>
+		T parseSingle(std::string s)
+		{
+			return (T)s;
+		}
+
+		template<typename T>
 		T parseSingle(std::string s)
 		{
 			T t{};
-			return T;
+			return t;
 		}
 
-		template<>
-		int parseSingle<int>(std::string s)
+		template<int>
+		int parseSingle(std::string s)
 		{
 			return std::stoi(s);
 		}
 
-		template<>
-		double parseSingle<double>(std::string s)
+		template<double>
+		double parseSingle(std::string s)
 		{
 			return std::stod(s);
 		}
 
-		template<>
-		bool parseSingle<bool>(std::string s)
+		template<bool>
+		bool parseSingle(std::string s)
 		{
 			return std::stoi(s) != 0;
-		}
-
-		template<>
-		std::string parseSingle<std::string>(std::string s)
-		{
-			return s;
 		}
 
 		template <typename T>

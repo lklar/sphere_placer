@@ -90,7 +90,7 @@ private:
 	}
 
 	template<typename T>
-	void write_to_binary(std::vector<T>& data, std::ios_base::_Openmode openmode = static_cast<std::ios_base::_Openmode>(0))
+	void write_to_binary(std::vector<T>& data, std::ios_base::openmode openmode = static_cast<std::ios_base::openmode>(0))
 	{
 		ofs.open(filePath, std::ios::out | std::ios::binary | openmode);
 		size_t numberOfEntries = data.size();

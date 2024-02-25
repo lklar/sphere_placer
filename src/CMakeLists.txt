@@ -9,8 +9,10 @@ add_library(RNG "RNG/Splitmix64.cpp" "RNG/xoshiro256pp.cpp" "RNG/xoshiro256ss.cp
 
 target_link_libraries(sphere_placer PUBLIC RNG)
 
-if (CMAKE_VERSION VERSION_GREATER 3.12)
-  set_property(TARGET sphere_placer PROPERTY CXX_STANDARD 20)
-endif()
+set_property(TARGET sphere_placer PROPERTY CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_BUILD_TYPE debug)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20")
 
 # TODO: Add tests and install targets if needed.

@@ -3,14 +3,14 @@
 
 namespace RNG
 {
-	xoshiro256pp RNG::make_xoshiro256pp(uint64_t seed)
+	xoshiro256pp make_xoshiro256pp(uint64_t seed)
 	{
 		Splitmix64 s64(seed);
 		xoshiro256pp newGenerator(s64(), s64(), s64(), s64());
 		return newGenerator;
 	}
 
-	xoshiro256pp RNG::make_xoshiro256pp(uint64_t seed, uint64_t sequence)
+	xoshiro256pp make_xoshiro256pp(uint64_t seed, uint64_t sequence)
 	{
 		Splitmix64 s64(seed);
 		xoshiro256pp newGenerator(s64(), s64(), s64(), s64());
@@ -19,14 +19,14 @@ namespace RNG
 		return newGenerator;
 	}
 
-	xoshiro256ss RNG::make_xoshiro256ss(uint64_t seed)
+	xoshiro256ss make_xoshiro256ss(uint64_t seed)
 	{
 		Splitmix64 s64(seed);
 		xoshiro256ss newGenerator(s64(), s64(), s64(), s64());
 		return newGenerator;
 	}
 
-	xoshiro256ss RNG::make_xoshiro256ss(uint64_t seed, uint64_t sequence)
+	xoshiro256ss make_xoshiro256ss(uint64_t seed, uint64_t sequence)
 	{
 		Splitmix64 s64(seed);
 		xoshiro256ss newGenerator(s64(), s64(), s64(), s64());

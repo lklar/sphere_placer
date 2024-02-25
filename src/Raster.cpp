@@ -1,4 +1,5 @@
 #include "Raster.h"
+#include <algorithm>
 
 Raster::Raster(double xMax, double yMax, double R)
 {

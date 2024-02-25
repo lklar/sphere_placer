@@ -120,7 +120,7 @@ void rotate_points(std::vector<Sphere>& spheres, double3 axis, double angle)
 			double buffer = 1.0 / (a * a + d3.x * d3.x + d3.y * d3.y + d3.z * d3.z);
 			return quaternion(
 				a,
-				d3 * (-1)
+				(-1.0) * d3
 			) * buffer;
 		}
 
@@ -128,7 +128,7 @@ void rotate_points(std::vector<Sphere>& spheres, double3 axis, double angle)
 		{
 			return quaternion(
 				a,
-				d3 * (-1)
+				(-1.0) * d3
 			);
 		}
 	};

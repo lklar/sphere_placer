@@ -1,4 +1,3 @@
-#pragma once
 #include "PlacerConfig.h"
 
 PlacerConfig::PlacerConfig(int argc, char** argv)

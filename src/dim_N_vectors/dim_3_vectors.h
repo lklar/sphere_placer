@@ -91,25 +91,25 @@ public:
 		);
 	}
 
-	template <typename T2>
-	inline auto operator*(const dim_3_vector<T2>& other)
-	{
-		return
-			x * other.x +
-			y * other.y +
-			z * other.z;
+	// template <typename T2>
+	// inline auto operator*(const dim_3_vector<T2>& other)
+	// {
+	// 	return
+	// 		x * other.x +
+	// 		y * other.y +
+	// 		z * other.z;
 
-	}
+	// }
 
-	template <typename T2>
-	inline dim_3_vector operator*(T2 other)
-	{
-		return dim_3_vector(
-			x * other,
-			y * other,
-			z * other
-		);
-	}
+	// template <typename T2>
+	// inline dim_3_vector operator*(T2 other)
+	// {
+	// 	return dim_3_vector(
+	// 		x * other,
+	// 		y * other,
+	// 		z * other
+	// 	);
+	// }
 
 	template <typename T2>
 	inline dim_3_vector cross(dim_3_vector<T2> other)

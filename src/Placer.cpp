@@ -1,4 +1,3 @@
-#pragma once
 #include "Placer.h"
 #include <algorithm>
 #include <chrono>
@@ -59,7 +58,7 @@ std::pair<int, double> SpherePlacer::dynamicFfInterface::get_phi_and_extra_theta
 		});
 
 	// Fitted against Boltzmann function from 181 data points for phi steps = 1,
-	// extra theta angles from 0Åã do 180Åã. Function has the form
+	// extra theta angles from 0ÔøΩÔøΩ do 180ÔøΩÔøΩ. Function has the form
 	// y = (A1 - A2) / (1 + e^((x - x0) / dx)) + A2
 
 	// Invert Boltzmann function to get the needed theta angle for the wanted filling factor
