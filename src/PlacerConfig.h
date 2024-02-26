@@ -73,19 +73,22 @@ private:
 			return t;
 		}
 
-		template<int>
+		template<typename T>
+		requires std::same_as<int, T>
 		int parseSingle(std::string s)
 		{
 			return std::stoi(s);
 		}
 
-		template<double>
+		template<typename T>
+		requires std::same_as<double, T>
 		double parseSingle(std::string s)
 		{
 			return std::stod(s);
 		}
 
-		template<bool>
+		template<typename T>
+		requires std::same_as<bool, T>
 		bool parseSingle(std::string s)
 		{
 			return std::stoi(s) != 0;
