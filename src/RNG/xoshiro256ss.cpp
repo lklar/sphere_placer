@@ -133,4 +133,13 @@ namespace RNG
 		return (next() >> 11) * 0x1.0p-53;
 	}
 
+	uint64_t xoshiro256ss::min()
+	{
+		return 0;
+	}
+
+	uint64_t xoshiro256ss::max()
+	{
+		return UINT64_MAX;
+	}
 }
