@@ -1,6 +1,7 @@
 #include "Placer.h"
 #include <algorithm>
 #include <chrono>
+#include <format>
 
 SpherePlacer::SpherePlacer(PlacerConfig& config) : config(config) 
 {
@@ -117,6 +118,8 @@ std::vector<Sphere> SpherePlacer::place_spheres()
 		Sphere& newSphere = inputSpheres->back();
 		double3& Pn = newSphere.P;
 		double& Rn = newSphere.R;
+		// Temporarily decrease sphere radius during its placement procedure to ensure the overlap
+		Rn -= config.overlap;
 		Pn.z = 0;
 		Sphere newSphereStart = newSphere;
 
@@ -154,7 +157,9 @@ std::vector<Sphere> SpherePlacer::place_spheres()
 			Pn.z = Pb.z + (Rn + Rb) * std::cos(theta);
 		}
 
-		
+		// Revert sphere radius to its original size
+		Rn += config.overlap;
+
 		sphereRaster->add(newSphere);
 		inputSpheres->pop_back();
 		
@@ -162,7 +167,7 @@ std::vector<Sphere> SpherePlacer::place_spheres()
 		{
 			auto chronoNow = std::chrono::system_clock::now();
 			std::chrono::duration<double> elapsed_seconds = chronoNow - chronoEnd;
-			std::cout << inputSpheres->size() << "\t" << elapsed_seconds.count() << "\n";
+			std::cout << std::format("Remaining spheres: {:06}, time taken: {:.2f} s\n", inputSpheres->size(), elapsed_seconds.count());
 			chronoEnd = chronoNow;
 		}
 	}

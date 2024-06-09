@@ -16,6 +16,7 @@ int main(int argc, char** argv)
 	// -theta <double>:			Maximum additional rotation in polar direction in degrees
 	// -nphi <int>:				Number of azimuthal angles considered
 	// -o <string>:				Output path
+	// -overlap <double>:       
 	PlacerConfig config(argc, argv);
 	
 	// Apart from the command line interface, parameters can be set like this:

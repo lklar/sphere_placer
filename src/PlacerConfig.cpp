@@ -13,4 +13,5 @@ PlacerConfig::PlacerConfig(int argc, char** argv)
 	cliP.set_from_cli<int>("-nphi", { n_phi });
 	cliP.set_from_cli<std::string>("-o", { output_path });
 	cliP.set_from_cli<bool>("-loop", { recursive_mode });
+	cliP.set_from_cli<double>("-overlap", { overlap });
 }

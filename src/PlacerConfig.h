@@ -20,6 +20,7 @@ public:
 	double r = 0.5;
 	double r_min = 0.5;
 	double r_max = 0.5;
+	double overlap = 0.0;
 	double theta_a = 180;
 	int n_phi = 1;
 	std::string output_path = "out.csv";
