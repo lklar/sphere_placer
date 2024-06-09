@@ -204,10 +204,10 @@ private:
 		for (auto& elem : data)
 		{
 			std::vector<double> vec = elem;
-			ofs << vec[0];
+			ofs << std::format("{:.5f}", vec[0]);
 			for (int col = 1; col < vec.size(); ++col)
 			{
-				ofs << "," << vec[col];
+				ofs << "," << std::format("{:.5f}", vec[col]);
 			}
 			ofs << "\n";
 		}
