@@ -142,9 +142,6 @@ Raster::SphereVectorRange RecursiveRaster::get_spheres(const double& x, const do
 				offset.y = yMax;
 				myY -= yDim;
 			}
-			else {
-				offset.y = 0;
-			}
 			
 			if (
 				!space[myX][myY].empty() &&

@@ -139,15 +139,16 @@ public:
 			z / other
 		);
 	}
-
-	inline bool operator==(const dim_3_vector& other)
-	{
-		return
-			x == other.x &&
-			y == other.y &&
-			z == other.z;
-	}
 };
+
+template <typename T1, typename T2>
+inline bool operator==(const dim_3_vector<T1>& left, const dim_3_vector<T2>& right)
+{
+	return
+		left.x == right.x &&
+		left.y == right.y &&
+		left.z == right.z;
+}
 
 template <typename T1, typename T2>
 inline auto operator+(const dim_3_vector<T1>& lhs, const dim_3_vector<T2>& rhs)
