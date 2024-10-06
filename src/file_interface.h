@@ -4,6 +4,7 @@
 #include <string>
 #include <fstream>
 #include <format>
+#include <sstream>
 #include "dim_N_vectors/dim_3_vectors.h"
 #include <filesystem>
 
@@ -103,29 +104,20 @@ private:
 		requires std::constructible_from<T, std::vector<double>&>
 	std::vector<T> read_from_csv()
 	{
-		std::string content;
-		{
-			ifs.open(filePath, std::ios_base::in);
-
-			ifs.seekg(0, ifs.end);
-			size_t fileSize = ifs.tellg();
-			ifs.seekg(0, ifs.beg);
-
-			content.resize(fileSize, '\0');
-			ifs.read(content.data(), fileSize);
-			ifs.close();
-		}
+		std::vector<T> allData;
 
 		std::vector<T> allData;
 
-		size_t lineStart = 0;
-		size_t lineEnd;
+		std::stringstream iss;
+		ifs.open(filePath, std::ios_base::in);
+		iss << ifs.rdbuf();
+
+		std::string line;
 
 		size_t lineNumber = 0;
 
-		while ((lineEnd = content.find('\n', lineStart)) != std::string::npos)
+		while (std::getline(iss, line, '\n'))
 		{
-			std::string_view line(content.data() + lineStart, lineEnd - lineStart);
 
 			std::vector<double> fields;
 			auto lEnd = line.data() + line.size();
@@ -142,9 +134,8 @@ private:
 			}
 			catch(std::exception e)
 			{
-				printf("Error while parsing file %s line %d: Not enough arguments\n", filePath, lineNumber);
+				std::cout << "Error while parsing file " << filePath <<  " line " << lineNumber << ": Not enough valid arguments\n";
 			}
-			lineStart = lineEnd + 1;
 			++lineNumber;
 		}
 
@@ -155,40 +146,25 @@ private:
 		requires std::constructible_from<T, double>
 	std::vector<T> read_from_csv()
 	{
-		std::string content;
-		{
-			ifs.open(filePath, std::ios_base::in);
-
-			ifs.seekg(0, ifs.end);
-			size_t fileSize = ifs.tellg();
-			ifs.seekg(0, ifs.beg);
-
-			content.resize(fileSize, '\0');
-			ifs.read(content.data(), fileSize);
-			ifs.close();
-		}
-
 		std::vector<T> allData;
 
-		size_t lineStart = 0;
-		size_t lineEnd;
+		std::stringstream iss;
+		ifs.open(filePath, std::ios_base::in);
+		iss << ifs.rdbuf();
 
-		size_t lineNumber = 0;
-
-		while ((lineEnd = content.find('\n', lineStart)) != std::string::npos)
+		std::string line;
+		int lineNumber = 0;
+		while (std::getline(iss, line, '\n'))
 		{
 			double result;
-			try 
+			auto [ptr, ec] = std::from_chars(line.data(), line.data() + line.size(), result);
+			if (ec == std::errc() && ptr == line.data() + line.size())
 			{
-				std::from_chars(content.data() + lineStart, content.data() + lineEnd, result);
 				allData.emplace_back(result);
 			}
-			catch (const std::exception e)
-			{
-				std::string_view line(content.data() + lineStart, lineEnd - lineStart);
-				std::printf("Error parsing file %s in line %d:\n%s\n", filePath, lineNumber, line);
+			else {
+				std::cout << "Error parsing file " << filePath << " in line " << lineNumber << ": " << line << "\n";
 			}
-			lineStart = lineEnd + 1;
 			++lineNumber;
 		}
 

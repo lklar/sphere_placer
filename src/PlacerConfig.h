@@ -5,9 +5,10 @@
 #include <map>
 #include <string>
 #include <functional>
-#include "Raster.h"
 #include <random>
+#include "Raster.h"
 #include "RNG/RNG.h"
+#include "file_interface.h"
 
 class PlacerConfig {
 private:
@@ -24,6 +25,7 @@ public:
 	double theta_a = 180;
 	int n_phi = 1;
 	std::string output_path = "out.csv";
+	std::string radii_input_path;
 	bool recursive_mode = true;
 	std::function<double(RNG::xoshiro256ss&)> radius_generator = 
 		[&r_min = this->r_min, &r_max = this->r_max](RNG::xoshiro256ss& rng) {
@@ -31,10 +33,11 @@ public:
 			return dist(rng);
 	};
 
-
 	PlacerConfig() {};
 
 	PlacerConfig(int argc, char** argv);
+
+	std::vector<double> get_radii(RNG::xoshiro256ss& rng);
 
 private:
 
@@ -122,7 +125,7 @@ private:
 				std::vector<T> parsedValues = parse<T>(cliKey);
 				if (values.size() != parsedValues.size())
 				{
-					std::printf("Error: command line option %s expects %i arguments, but %i were given\n", cliKey, values.size(), parsedValues.size());
+					std::printf("Error: command line option %s expects %i arguments, but %i were given\n", cliKey.c_str(), (int)values.size(), (int)parsedValues.size());
 				}
 				for (int i = 0; i < values.size() && i < parsedValues.size(); ++i)
 				{
