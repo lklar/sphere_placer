@@ -6,24 +6,29 @@
 SpherePlacer::SpherePlacer(PlacerConfig& config) : config(config) 
 {
 	inputSpheres = std::shared_ptr<std::vector<Sphere>>(new std::vector<Sphere>());
-	
-	RNG::uniform_real_distribution xDist(rngEngine());
-	RNG::uniform_real_distribution yDist(rngEngine());
-	RNG::uniform_real_distribution zDist(rngEngine());
 
-	for (int i = 0; i < config.n; ++i)
-	{
-		inputSpheres->emplace_back(
-			xDist(config.r, config.x_dim - config.r),
-			yDist(config.r, config.y_dim - config.r),
-			0,
-			config.radius_generator(rngEngine)
-		);
-	}
-	double r_max = std::max_element(inputSpheres->begin(), inputSpheres->end(), [](const Sphere& lhs, const Sphere& rhs) {return lhs.R < rhs.R; })->R;
+		RNG::uniform_real_distribution xDist(rngEngine());
+		RNG::uniform_real_distribution yDist(rngEngine());
+		RNG::uniform_real_distribution zDist(rngEngine());
 
-	sphereRaster = std::make_unique<RecursiveRaster>(config.x_dim, config.y_dim, r_max);
-	
+		for (auto& r : config.get_radii(rngEngine))
+		{
+			if (r > 0.0)
+			{
+				inputSpheres->emplace_back(
+					xDist(config.r, config.x_dim - config.r),
+					yDist(config.r, config.y_dim - config.r),
+					0,
+					r
+				);
+			}
+			else {
+				std::printf("Removed radius %f from input dataset for not being a non-null positive value.\n", r);
+			}
+		}
+		double r_max = std::max_element(inputSpheres->begin(), inputSpheres->end(), [](const Sphere& lhs, const Sphere& rhs) {return lhs.R < rhs.R; })->R;
+
+		sphereRaster = std::make_unique<RecursiveRaster>(config.x_dim, config.y_dim, r_max);
 }
 
 SpherePlacer::dynamicFfInterface::dynamicFfInterface(std::function<double(const Sphere&)> sphereFunction)
